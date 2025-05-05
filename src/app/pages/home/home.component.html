@@ -1,0 +1,84 @@
+<div class="container py-4">
+  <!-- Section 1: Welcome & Instructions -->
+  <section class="mb-5">
+    <div class="card shadow-sm border-0 bg-light">
+      <div class="card-body">
+        <h2 class="card-title">Welcome back, Ilyasse!</h2>
+        <p class="card-text lead">Ready to turn your documents into smart quizzes?</p>
+        <p class="card-text">
+          Upload your course PDF, and SmartQuiz will generate quality multiple-choice questions to help you study effectively.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: PDF Upload & QCM Generation -->
+  <section class="mb-5">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <h3 class="card-title mb-4">Upload Course PDF</h3>
+
+        <!-- PDF Upload Component -->
+       <!-- <app-pdf-upload (uploaded)="onPdfUploaded($event)"></app-pdf-upload>  -->
+
+        <!-- Generate Button - Shown only when a file is selected -->
+        <div class="text-center mt-4" >
+          <button class="btn btn-primary btn-lg" [disabled]="isGenerating" (click)="generateQCM()">
+            <i class="bi bi-gear me-2"></i>
+            <span >Generate QCM</span>
+            <span >Generating...</span>
+          </button>
+        </div>
+
+        <!-- Loading indicator when generating -->
+        <div class="text-center mt-4" >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Analyzing your document and creating quiz questions...</p>
+          <div class="progress mt-3">
+            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                 role="progressbar"
+                 [style.width.%]="generationProgress">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Quick Access Cards / Boxes -->
+  <section class="row g-4">
+    <!-- My QCMs Card -->
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm border-0 hover-effect">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex align-items-center mb-3">
+            <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+              <i class="bi bi-file-text fs-4 text-primary"></i>
+            </div>
+            <h4 class="card-title mb-0">My QCMs</h4>
+          </div>
+          <p class="card-text">See all the QCMs you've generated. Edit, delete, or download.</p>
+          <a routerLink="/my-qcms" class="btn btn-outline-primary mt-auto">View All</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explore QCMs Card -->
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm border-0 hover-effect">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex align-items-center mb-3">
+            <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+              <i class="bi bi-globe fs-4 text-success"></i>
+            </div>
+            <h4 class="card-title mb-0">Explore QCMs</h4>
+          </div>
+          <p class="card-text">Browse public QCMs shared by other students. Great for revision!</p>
+          <a routerLink="/explore" class="btn btn-outline-success mt-auto">Explore</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

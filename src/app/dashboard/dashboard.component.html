@@ -1,0 +1,8 @@
+<div>
+  <input type="file" (change)="uploadFile($event)" />
+</div>
+
+<div *ngIf="textExtracted">
+  <h3>Text Extracted from the fdp --></h3>
+  <pre>{{textExtracted}}</pre>
+</div>

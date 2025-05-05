@@ -1,0 +1,98 @@
+<div class="qcm-generator-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Smart Quiz Generator</h2>
+      <p>Upload a document to automatically generate quiz questions</p>
+    </div>
+
+    <div class="card-body">
+      <div class="file-upload-section">
+        <div class="file-upload-area"
+             [class.has-file]="selectedFile"
+             (click)="fileInput.click()">
+          <input #fileInput
+                 type="file"
+                 (change)="onFileSelected($event)"
+                 accept=".pdf,.doc,.docx,.txt"
+                 style="display: none;">
+
+          <div class="upload-content">
+            <i class="upload-icon fas fa-cloud-upload-alt"></i>
+            <span *ngIf="!selectedFile">
+              Drag & drop your file here or click to browse
+            </span>
+            <span *ngIf="selectedFile">
+              Selected: {{ selectedFile.name }}
+            </span>
+          </div>
+        </div>
+
+        <div class="file-info" *ngIf="selectedFile">
+          <p><strong>File name:</strong> {{ selectedFile.name }}</p>
+          <p><strong>File size:</strong> {{ (selectedFile.size / 1024).toFixed(2) }} KB</p>
+          <p><strong>File type:</strong> {{ selectedFile.type }}</p>
+        </div>
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button class="btn btn-primary generate-btn"
+              [disabled]="!selectedFile || isLoading"
+              (click)="generateQcm()">
+        <span *ngIf="!isLoading">Generate Quiz</span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin"></i> Processing...
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="qcm-results" *ngIf="generatedQcm">
+    <div class="card">
+      <div class="card-header">
+        <h3>{{ generatedQcm.title }}</h3>
+        <div class="qcm-meta">
+          <span>Created: {{ generatedQcm.createdAt | date:'medium' }}</span>
+          <span>File: {{ generatedQcm.fileName }}</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="question-list">
+          <div class="question-item" *ngFor="let question of generatedQcm.questions; let i = index">
+            <div class="question-header">
+              <span class="question-number">Question {{ i + 1 }}</span>
+            </div>
+            <div class="question-text">{{ question.question }}</div>
+            <div class="options-list">
+              <div class="option-item"
+                   *ngFor="let option of question.options; let j = index"
+                   [class.correct-answer]="j === question.correctAnswerIndex">
+                <span class="option-marker">{{ ['A', 'B', 'C', 'D', 'E'][j] }}</span>
+                <span class="option-text">{{ option }}</span>
+                <span class="correct-indicator" *ngIf="j === question.correctAnswerIndex">
+                  <i class="fas fa-check-circle"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qcm-actions">
+          <button class="btn btn-outline-primary">
+            <i class="fas fa-print"></i> Print
+          </button>
+          <button class="btn btn-outline-primary">
+            <i class="fas fa-download"></i> Export
+          </button>
+          <button class="btn btn-outline-primary">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

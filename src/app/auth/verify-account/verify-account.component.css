@@ -1,0 +1,22 @@
+.activate-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.activate-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

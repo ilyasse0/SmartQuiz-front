@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <h2>Register</h2>
+  <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Username" [(ngModel)]="user.username" name="username" required>
+    </div>
+
+
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="user.firstName" name="firstName" required>
+    </div>
+
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="user.lastName" name="lastName" required>
+    </div>
+
+    <div class="mb-3">
+      <input type="email" class="form-control" placeholder="Email" [(ngModel)]="user.email" name="email" required>
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" name="password" required>
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Confirm Password" [(ngModel)]="user.confirmPassword" name="confirmPassword" required>
+    </div>
+
+<!--    <div class="mb-3">-->
+<!--      <label for="departement">Departement</label>-->
+<!--      <select class="form-control" [(ngModel)]="user.departement" name="departement" required>-->
+<!--        <option *ngFor="let dept of departements" [value]="dept.id">{{ dept.name }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+<!--    <div class="mb-3">-->
+<!--      <label for="filiere">Filiere</label>-->
+<!--      <select class="form-control" [(ngModel)]="user.filiere" name="filiere" required>-->
+<!--        <option *ngFor="let fil of filieres" [value]="fil.id">{{ fil.name }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>

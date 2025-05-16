@@ -16,6 +16,7 @@ import {CodeInputModule} from 'angular-code-input';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AuthLayoutComponentComponent } from './layout/auth-layout-component/auth-layout-component.component';
 import { QcmGeneratorComponent } from './layout/qcm-generator/qcm-generator.component';
+import { QcmAttemptComponent } from './layout/qcm-attempt/qcm-attempt.component';
 
 
 
@@ -32,6 +33,7 @@ import { QcmGeneratorComponent } from './layout/qcm-generator/qcm-generator.comp
     MainLayoutComponent,
     AuthLayoutComponentComponent,
     QcmGeneratorComponent,
+    QcmAttemptComponent,
   ],
   imports: [
     BrowserModule,

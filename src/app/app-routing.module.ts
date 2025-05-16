@@ -10,6 +10,7 @@ import { VerifyAccountComponent } from './auth/verify-account/verify-account.com
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import {AuthLayoutComponentComponent} from './layout/auth-layout-component/auth-layout-component.component';
 import {QcmGeneratorComponent} from './layout/qcm-generator/qcm-generator.component';
+import {QcmAttemptComponent} from './layout/qcm-attempt/qcm-attempt.component';
 
 const routes: Routes = [
   // Public/auth routes
@@ -38,9 +39,13 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent }
     ]
   },
+  { path: 'qcm/attempt/:id', component: QcmAttemptComponent },
+
 
   // Wildcard route
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: 'home' },
+
+
 ];
 
 @NgModule({

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import {QcmSetDtoToAttempt} from '../models/qcm';
+import {AttemptRequest} from '../models/AttemptRequest';
 
 export interface Authority {
   authority: string;
@@ -63,7 +65,7 @@ export interface GeneratedQcm {
   providedIn: 'root'
 })
 export class QcmService {
-  private apiUrl = `${environment.apiUrl}/generate/qcm`;
+  private apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) { }
 
@@ -112,5 +114,18 @@ export class QcmService {
     }
 
     return throwError(() => new Error(errorMessage));
+  }
+
+
+  getQcmToAttempt(id: number): Observable<QcmSetDtoToAttempt> {
+    return this.http.get<QcmSetDtoToAttempt>(`${this.apiUrl}/generate/Qcm/${id}`);
+  }
+
+
+  submitAttempt(request: AttemptRequest) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+    return this.http.post<{ score: number }>(`${this.apiUrl}/generate/submit`, request , {headers});
   }
 }

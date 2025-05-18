@@ -1,98 +1,135 @@
-<div class="qcm-generator-container">
-  <div class="card">
-    <div class="card-header">
-      <h2>Smart Quiz Generator</h2>
-      <p>Upload a document to automatically generate quiz questions</p>
-    </div>
+<div class="container my-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-    <div class="card-body">
-      <div class="file-upload-section">
-        <div class="file-upload-area"
-             [class.has-file]="selectedFile"
-             (click)="fileInput.click()">
-          <input #fileInput
-                 type="file"
-                 (change)="onFileSelected($event)"
-                 accept=".pdf,.doc,.docx,.txt"
-                 style="display: none;">
+      <!-- Introductory section -->
+      <div class="mb-4">
+        <h2 class="fw-bold">Smart Quiz Generator</h2>
+        <p class="lead text-secondary">
+          Upload a document, and our AI-powered tool will automatically generate quiz questions for you.
+        </p>
 
-          <div class="upload-content">
-            <i class="upload-icon fas fa-cloud-upload-alt"></i>
-            <span *ngIf="!selectedFile">
-              Drag & drop your file here or click to browse
+      </div>
+
+      <div class="card shadow-sm rounded-4">
+        <div class="card-body">
+
+          <!-- Title input -->
+          <div class="mb-3">
+            <label for="qcmTitle" class="form-label fw-semibold">Quiz Title</label>
+            <input type="text" id="qcmTitle" class="form-control" [(ngModel)]="qcmTitle" name="qcmTitle" placeholder="Enter quiz title" required>
+          </div>
+
+          <!-- Topic input -->
+          <div class="mb-3">
+            <label for="qcmTopic" class="form-label fw-semibold">Topic</label>
+            <input type="text" id="qcmTopic" class="form-control" [(ngModel)]="qcmTopic" name="qcmTopic" placeholder="Enter quiz topic" required>
+          </div>
+
+          <div
+            class="file-upload-area border border-dashed rounded-3 d-flex flex-column align-items-center justify-content-center text-center p-5 mb-3"
+            [class.border-primary]="selectedFile"
+            (click)="fileInput.click()"
+            style="cursor: pointer;"
+            title="Click to select a file"
+          >
+            <input
+              #fileInput
+              type="file"
+              (change)="onFileSelected($event)"
+              accept=".pdf"
+              hidden
+            />
+
+            <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+
+            <p class="mb-0 fs-5 text-secondary" *ngIf="!selectedFile">
+              Drag & drop your PDF file here or click to browse
+            </p>
+            <p class="mb-0 fs-5 text-success" *ngIf="selectedFile">
+              <strong>Selected:</strong> {{ selectedFile.name }}
+            </p>
+          </div>
+
+          <div *ngIf="selectedFile" class="file-info mb-3">
+            <p><strong>File name:</strong> {{ selectedFile.name }}</p>
+            <p><strong>File size:</strong> {{ (selectedFile.size / 1024).toFixed(2) }} KB</p>
+            <p><strong>File type:</strong> {{ selectedFile.type }}</p>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <button
+            class="btn btn-primary w-100"
+            [disabled]="!selectedFile || !qcmTitle.trim() || !qcmTopic.trim() || isLoading"
+            (click)="generateQcm()"
+          >
+            <span *ngIf="!isLoading">Generate Quiz</span>
+            <span *ngIf="isLoading">
+              <i class="fas fa-spinner fa-spin me-2"></i> Processing...
             </span>
-            <span *ngIf="selectedFile">
-              Selected: {{ selectedFile.name }}
-            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div *ngIf="generatedQcm" class="card shadow-sm rounded-4 mt-5">
+        <div class="card-header bg-secondary text-white d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-2 mb-md-0">{{ generatedQcm.title }}</h3>
+            <small class="text-light fst-italic">Topic: {{ generatedQcm.topic }}</small>
+          </div>
+          <div class="qcm-meta small">
+            <span class="me-3">Created: {{ generatedQcm.createdAt | date:'medium' }}</span>
+            <span>File: {{ generatedQcm.fileName }}</span>
           </div>
         </div>
 
-        <div class="file-info" *ngIf="selectedFile">
-          <p><strong>File name:</strong> {{ selectedFile.name }}</p>
-          <p><strong>File size:</strong> {{ (selectedFile.size / 1024).toFixed(2) }} KB</p>
-          <p><strong>File type:</strong> {{ selectedFile.type }}</p>
-        </div>
-      </div>
-
-      <div class="alert alert-danger" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-
-      <button class="btn btn-primary generate-btn"
-              [disabled]="!selectedFile || isLoading"
-              (click)="generateQcm()">
-        <span *ngIf="!isLoading">Generate Quiz</span>
-        <span *ngIf="isLoading">
-          <i class="fas fa-spinner fa-spin"></i> Processing...
-        </span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Results Section -->
-  <div class="qcm-results" *ngIf="generatedQcm">
-    <div class="card">
-      <div class="card-header">
-        <h3>{{ generatedQcm.title }}</h3>
-        <div class="qcm-meta">
-          <span>Created: {{ generatedQcm.createdAt | date:'medium' }}</span>
-          <span>File: {{ generatedQcm.fileName }}</span>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="question-list">
-          <div class="question-item" *ngFor="let question of generatedQcm.questions; let i = index">
-            <div class="question-header">
-              <span class="question-number">Question {{ i + 1 }}</span>
-            </div>
-            <div class="question-text">{{ question.question }}</div>
-            <div class="options-list">
-              <div class="option-item"
-                   *ngFor="let option of question.options; let j = index"
-                   [class.correct-answer]="j === question.correctAnswerIndex">
-                <span class="option-marker">{{ ['A', 'B', 'C', 'D', 'E'][j] }}</span>
-                <span class="option-text">{{ option }}</span>
-                <span class="correct-indicator" *ngIf="j === question.correctAnswerIndex">
-                  <i class="fas fa-check-circle"></i>
-                </span>
+        <div class="card-body">
+          <div class="question-list">
+            <div
+              class="question-item mb-4 p-3 border rounded"
+              *ngFor="let question of generatedQcm.questions; let i = index"
+            >
+              <div class="question-header fw-semibold mb-2">Question {{ i + 1 }}</div>
+              <div class="question-text mb-3">{{ question.question }}</div>
+              <div class="options-list">
+                <div
+                  class="option-item d-flex align-items-center mb-2"
+                  *ngFor="let option of question.options; let j = index"
+                  [ngClass]="{ 'bg-success text-white rounded px-3 py-1': j === question.correctAnswerIndex }"
+                >
+                  <span class="option-marker fw-bold me-3">
+                    {{ ['A', 'B', 'C', 'D', 'E'][j] }}
+                  </span>
+                  <span class="option-text flex-grow-1">{{ option }}</span>
+                  <span class="correct-indicator ms-3" *ngIf="j === question.correctAnswerIndex">
+                    <i class="fas fa-check-circle"></i>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="qcm-actions">
-          <button class="btn btn-outline-primary">
-            <i class="fas fa-print"></i> Print
-          </button>
-          <button class="btn btn-outline-primary">
-            <i class="fas fa-download"></i> Export
-          </button>
-          <button class="btn btn-outline-primary">
-            <i class="fas fa-edit"></i> Edit
-          </button>
+          <div class="qcm-actions d-flex gap-3 mt-4">
+            <button class="btn btn-success flex-fill d-flex align-items-center justify-content-center gap-2" title="Take the Test">
+              <i class="fas fa-play-circle fs-5"></i>
+              <span class="fw-semibold">Take Test</span>
+            </button>
+            <button class="btn btn-info flex-fill d-flex align-items-center justify-content-center gap-2" title="Share Quiz">
+              <i class="fas fa-share-alt fs-5"></i>
+              <span class="fw-semibold">Share</span>
+            </button>
+            <button class="btn btn-warning flex-fill d-flex align-items-center justify-content-center gap-2" title="Edit Quiz">
+              <i class="fas fa-edit fs-5"></i>
+              <span class="fw-semibold">Edit</span>
+            </button>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

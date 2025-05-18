@@ -10,6 +10,8 @@ import {finalize} from 'rxjs';
   styleUrl: './qcm-generator.component.css'
 })
 export class QcmGeneratorComponent {
+  qcmTopic = '';
+  qcmTitle = '';
   selectedFile: File | null = null;
   isLoading = false;
   errorMessage: string | null = null;
@@ -62,7 +64,7 @@ export class QcmGeneratorComponent {
    * Uploads the file and generates QCM
    */
   generateQcm(): void {
-    if (!this.selectedFile) {
+    if (!this.selectedFile || !this.qcmTopic.trim() || !this.qcmTitle.trim()) {
       this.errorMessage = 'Please select a file first';
       return;
     }
@@ -83,7 +85,7 @@ export class QcmGeneratorComponent {
     // No need to send userDetails since it's in the token
     const userDetails = null;
 
-    this.qcmService.generateQcm(this.selectedFile, userDetails)
+    this.qcmService.generateQcm(this.selectedFile, userDetails , this.qcmTopic  ,this.qcmTitle )
       .pipe(
         finalize(() => this.isLoading = false)
       )

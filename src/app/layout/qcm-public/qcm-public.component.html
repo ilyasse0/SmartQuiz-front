@@ -1,0 +1,40 @@
+<div class="container mt-4 p-lg-2" style="max-width: 900px;">
+  <h2 class="mb-4 text-center">QCM Publics</h2>
+
+  <div class="mb-4">
+    <input
+      type="search"
+      class="form-control form-control-lg"
+      placeholder="Rechercher par titre ou sujet..."
+      [(ngModel)]="searchTerm"
+
+      aria-label="Rechercher QCM"
+    />
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+  <div *ngIf="!loading && !error && filteredQcms.length === 0" class="alert alert-info text-center">
+    Aucun QCM public trouvé.
+  </div>
+
+  <div class="row gy-4" *ngIf="!loading && !error">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let qcm of filteredQcms">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ qcm.title }}</h5>
+          <p class="text-muted mb-1">Créé par : ({{ qcm.createdByUsername }})</p>
+          <p class="card-text text-muted">{{ qcm.topic }}</p>
+          <p class="card-text"><small class="text-muted">Créé le {{ qcm.createdAt | date:'shortDate' }}</small></p>
+          <a [routerLink]="['/qcm/attempt', qcm.id]" class="btn btn-primary mt-auto">
+            Commencer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@
 <!-- Bootstrap Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-<div class="container mt-5" *ngIf="qcmSet">
+<div class="container mt-4 p-lg-2" style="max-width: 900px;" *ngIf="qcmSet">
   <div class="card shadow-sm border-0">
     <div class="card-header bg-primary text-white">
       <div class="d-flex justify-content-between align-items-center">
@@ -41,9 +41,9 @@
                            type="radio"
                            name="question-{{ question.questionId }}"
                            id="option-{{ question.questionId }}-{{ option.optionId }}"
-                           [value]="option.optionId"
-                           [checked]="selectedOptions[question.questionId] === option.optionId"
-                           (change)="selectOption(question.questionId, option.optionId)">
+                           [value]="option.optionLabel"
+                           [checked]="selectedOptions[question.questionId] === option.optionLabel"
+                           (change)="selectOption(question.questionId, option.optionLabel)">
                     <label class="form-check-label" for="option-{{ question.questionId }}-{{ option.optionId }}">
                       <span class="fw-medium">{{ option.optionLabel }}.</span> {{ option.text }}
                     </label>

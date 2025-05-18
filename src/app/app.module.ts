@@ -17,6 +17,9 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { AuthLayoutComponentComponent } from './layout/auth-layout-component/auth-layout-component.component';
 import { QcmGeneratorComponent } from './layout/qcm-generator/qcm-generator.component';
 import { QcmAttemptComponent } from './layout/qcm-attempt/qcm-attempt.component';
+import { AttemptListComponent } from './layout/attempt-list/attempt-list.component';
+import { MyQcmsComponent } from './layout/my-qcms/my-qcms.component';
+import { QcmPublicComponent } from './layout/qcm-public/qcm-public.component';
 
 
 
@@ -34,6 +37,9 @@ import { QcmAttemptComponent } from './layout/qcm-attempt/qcm-attempt.component'
     AuthLayoutComponentComponent,
     QcmGeneratorComponent,
     QcmAttemptComponent,
+    AttemptListComponent,
+    MyQcmsComponent,
+    QcmPublicComponent,
   ],
   imports: [
     BrowserModule,

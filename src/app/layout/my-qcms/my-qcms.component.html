@@ -1,0 +1,53 @@
+<div class="container mt-4 p-lg-2" style="max-width: 900px;">
+<h2 class="mb-4">Mes QCM</h2>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table *ngIf="!loading && !error && qcms.length" class="table table-hover align-middle">
+    <thead class="table-light">
+    <tr>
+      <th>Titre</th>
+      <th>Sujet</th>
+      <th>Créé le</th>
+      <th>Public</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let qcm of qcms">
+      <td>{{ qcm.title }}</td>
+      <td>{{ qcm.topic }}</td>
+      <td>{{ qcm.createdAt | date: 'short' }}</td>
+      <td>
+          <span
+            class="badge"
+            [class.bg-success]="qcm.isPublic"
+            [class.bg-secondary]="!qcm.isPublic"
+          >{{ qcm.isPublic ? 'Oui' : 'Non' }}</span
+          >
+      </td>
+      <td>
+        <button
+          class="btn btn-outline-primary btn-sm"
+          (click)="togglePublic(qcm)"
+          [attr.aria-label]="
+              qcm.isPublic
+                ? 'Rendre privé ' + qcm.title
+                : 'Partager publiquement ' + qcm.title
+            "
+        >
+          {{ qcm.isPublic ? 'Rendre privé' : 'Partager' }}
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !error && !qcms.length" class="alert alert-info">
+    Vous n'avez encore créé aucun QCM.
+  </div>
+</div>

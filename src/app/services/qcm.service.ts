@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import {QcmSetDtoToAttempt} from '../models/qcm';
 import {AttemptRequest} from '../models/AttemptRequest';
@@ -61,6 +61,16 @@ export interface GeneratedQcm {
   question: Question;
 }
 
+export interface  QcmDto{
+  id: number;
+  title: string;
+  topic: string;
+  createdAt: string;
+  isPublic: boolean | null;
+  createdByUsername: string;
+
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -73,11 +83,15 @@ export class QcmService {
    * Generates a QCM from the uploaded file and user details
    * @param file The file to upload for QCM generation
    * @param userDetails Optional user details
+   * @param title
+   * @param topic
    * @returns An Observable of the generated QcmSet
    */
-  generateQcm(file: File, userDetails: any): Observable<QcmSet> {
+  generateQcm(file: File, userDetails: any , title : string , topic : string): Observable<QcmSet> {
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('title' , title);
+    formData.append('topic' , topic);
     if (userDetails) {
       formData.append('userDetails', JSON.stringify(userDetails));
     }
@@ -127,5 +141,30 @@ export class QcmService {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
     return this.http.post<{ score: number }>(`${this.apiUrl}/generate/submit`, request , {headers});
+  }
+
+
+
+  getUserQcms(): Observable<QcmDto[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<QcmDto[]>(`${this.apiUrl}/generate/my-qcms`, { headers });
+  }
+
+  toggleQcmPublic(qcmId: number): Observable<{ public: boolean }> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<{ public: boolean }>(`${this.apiUrl}/generate/toggle-public/${qcmId}`, {}, { headers });
+  }
+
+
+  getPublicQcms(keyword?: string): Observable<QcmDto[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let params = new HttpParams();
+    if (keyword) {
+      params = params.set('keyword', keyword);
+    }
+    return this.http.get<QcmDto[]>(`${this.apiUrl}/generate/public`, { headers, params });
   }
 }

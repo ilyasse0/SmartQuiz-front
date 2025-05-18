@@ -12,7 +12,7 @@ import {Subscription, interval} from 'rxjs';
 })
 export class QcmAttemptComponent implements OnInit, OnDestroy {
   qcmSet!: QcmSetDtoToAttempt;
-  selectedOptions : {[questionId : number] : number} = {};
+  selectedOptions : {[questionId : number] : string} = {};
 
   remainingTime: Date = new Date(0, 0, 0, 0, 30, 0); // 30 minutes by default
   private timerSubscription: Subscription | null = null;
@@ -45,8 +45,10 @@ export class QcmAttemptComponent implements OnInit, OnDestroy {
     // }
   }
 
-  selectOption(questionId: number, optionId: number) {
-    this.selectedOptions[questionId] = optionId;
+
+  selectOption(questionId: number, optionLabel: string) {
+    this.selectedOptions[questionId] = optionLabel.toUpperCase();
+    console.log(optionLabel);
   }
 
   submitQcm() {

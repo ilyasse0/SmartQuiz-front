@@ -11,6 +11,9 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import {AuthLayoutComponentComponent} from './layout/auth-layout-component/auth-layout-component.component';
 import {QcmGeneratorComponent} from './layout/qcm-generator/qcm-generator.component';
 import {QcmAttemptComponent} from './layout/qcm-attempt/qcm-attempt.component';
+import {AttemptListComponent} from './layout/attempt-list/attempt-list.component';
+import {MyQcmsComponent} from './layout/my-qcms/my-qcms.component';
+import {QcmPublicComponent} from './layout/qcm-public/qcm-public.component';
 
 const routes: Routes = [
   // Public/auth routes
@@ -27,6 +30,11 @@ const routes: Routes = [
       { path: 'home', component: QcmGeneratorComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'qcm-Generator' , component: QcmGeneratorComponent },
+      { path: 'my-qcm', component: MyQcmsComponent },
+      { path: 'qcm/attempt/:id', component: QcmAttemptComponent },
+      { path: 'attempts', component: AttemptListComponent },
+      { path: 'my-qcms', component: MyQcmsComponent },
+      { path: 'public-qcms', component: QcmPublicComponent },
       // Add more protected routes here
     ]
   },
@@ -39,7 +47,10 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent }
     ]
   },
-  { path: 'qcm/attempt/:id', component: QcmAttemptComponent },
+
+
+
+
 
 
   // Wildcard route

@@ -1,0 +1,37 @@
+<div class="container mt-4 p-lg-2" style="max-width: 900px;">
+  <h2>Mes Tentatives</h2>
+
+  <div *ngIf="loading">Chargement...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table *ngIf="!loading && !error && attempts.length > 0" class="table table-striped">
+    <thead>
+    <tr>
+      <th>#ID</th>
+      <th>Date de début</th>
+      <th>Date de fin</th>
+      <th>Score</th>
+      <th>QCM</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let attempt of attempts">
+      <td>{{ attempt.id }}</td>
+      <td>{{ attempt.startedAt | date: 'short' }}</td>
+      <td>{{ attempt.completedAt | date: 'short' }}</td>
+      <td>{{ attempt.score }}</td>
+      <td>{{ attempt.qcmSetId }}</td>
+      <td>
+        <a [routerLink]="['/qcm/attempt', attempt.qcmSetId]" class="btn btn-primary btn-sm">
+          Repasser
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !error && attempts.length === 0" class="alert alert-info">
+    Vous n'avez encore fait aucune tentative.
+  </div>
+</div>

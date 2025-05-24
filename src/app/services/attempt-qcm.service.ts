@@ -8,6 +8,7 @@ export interface AttemptDto {
   completedAt: string;
   score: number;
   qcmSetId: number;
+  qcmTitle : string;
 }
 
 

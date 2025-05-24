@@ -50,7 +50,7 @@ export class RegisterComponent {
       .subscribe({
         next: (response) => {
           alert('Registration successful!');
-          //this.router.navigate(['/login']);
+          this.router.navigate(['/login']);
           // this.authService.register(registrationData).subscribe(
           //   {
           //     next: (response) => this.router.navigate(['/verify-account']),

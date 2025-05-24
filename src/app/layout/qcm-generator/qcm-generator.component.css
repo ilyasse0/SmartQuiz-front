@@ -17,3 +17,235 @@
 .qcm-actions button i {
   font-size: 1.2rem;
 }
+
+/* Header Section Styling */
+.header-section {
+  margin-bottom: 3rem;
+}
+
+.icon-container {
+  background-color: rgba(78, 115, 223, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Steps Indicator */
+.steps-indicator {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.step-item.active {
+  opacity: 1;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  background-color: #e9ecef;
+  color: #6c757d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.step-item.active .step-number {
+  background-color: #4e73df;
+  color: white;
+}
+
+.step-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.step-divider {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #e9ecef;
+  margin-top: 15px;
+  z-index: 0;
+}
+
+/* Generator Card */
+.generator-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* File Upload Area */
+.file-upload-area {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-color: #dee2e6;
+}
+
+.file-upload-area:hover {
+  background-color: rgba(78, 115, 223, 0.05);
+  border-color: #4e73df;
+}
+
+.file-upload-area.active-upload {
+  background-color: rgba(25, 135, 84, 0.05);
+  border-color: #198754;
+}
+
+.file-upload-area.hover-upload {
+  background-color: rgba(78, 115, 223, 0.1);
+  border-color: #4e73df;
+  transform: scale(1.01);
+}
+
+.upload-icon-container, .upload-success-container {
+  position: relative;
+}
+
+.file-name {
+  word-break: break-all;
+  max-width: 100%;
+}
+
+/* Result Section Animations */
+.result-section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-header.bg-gradient {
+  background: linear-gradient(135deg, #4e73df, #224abe);
+}
+
+/* Question Accordion */
+.question-accordion .accordion-item {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.question-accordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+.question-accordion .accordion-button {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+.question-accordion .accordion-button:not(.collapsed) {
+  color: #4e73df;
+  background-color: #e7f1ff;
+}
+
+/* Option Items */
+.option-item {
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+  border: 1px solid #eee;
+}
+
+.option-item:hover {
+  transform: translateX(5px);
+}
+
+.option-marker {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(78, 115, 223, 0.1);
+  color: #4e73df;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.correct-option {
+  background-color: rgba(25, 135, 84, 0.1);
+  border-color: #198754;
+}
+
+.correct-option .option-marker {
+  background-color: #198754;
+  color: white;
+}
+
+.incorrect-option .option-marker {
+  background-color: rgba(78, 115, 223, 0.1);
+  color: #4e73df;
+}
+
+/* Animation for loader */
+.btn .spinner-border {
+  margin-right: 0.5rem;
+}
+
+/* Success Icon in Result Section */
+.success-icon {
+  background-color: rgba(25, 135, 84, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Quiz Stats */
+.quiz-stats {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.stat-item {
+  border-right: 1px solid #e9ecef;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+/* Button Animations */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Error Container Animation */
+.error-container {
+  animation: fadeIn 0.3s ease-in-out;
+}

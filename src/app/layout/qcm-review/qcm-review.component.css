@@ -1,0 +1,17 @@
+.card {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.bg-success,
+.bg-danger {
+  transition: all 0.3s ease;
+}
+
+.list-group-item {
+  transition: background-color 0.2s ease;
+}

@@ -20,6 +20,7 @@ import { QcmAttemptComponent } from './layout/qcm-attempt/qcm-attempt.component'
 import { AttemptListComponent } from './layout/attempt-list/attempt-list.component';
 import { MyQcmsComponent } from './layout/my-qcms/my-qcms.component';
 import { QcmPublicComponent } from './layout/qcm-public/qcm-public.component';
+import { QcmReviewComponent } from './layout/qcm-review/qcm-review.component';
 
 
 
@@ -38,15 +39,16 @@ import { QcmPublicComponent } from './layout/qcm-public/qcm-public.component';
     QcmGeneratorComponent,
     QcmAttemptComponent,
     AttemptListComponent,
-    MyQcmsComponent,
     QcmPublicComponent,
+    QcmReviewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CodeInputModule
+    CodeInputModule,
+    MyQcmsComponent
 
   ],
   providers: [],

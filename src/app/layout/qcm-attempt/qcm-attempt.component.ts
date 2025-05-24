@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {QcmSetDtoToAttempt} from '../../models/qcm';
 import {QcmService} from '../../services/qcm.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription, interval} from 'rxjs';
 
 @Component({
@@ -21,7 +21,8 @@ export class QcmAttemptComponent implements OnInit, OnDestroy {
 
   constructor(
     private qcmService: QcmService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private  router: Router
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +73,8 @@ export class QcmAttemptComponent implements OnInit, OnDestroy {
       {
         next: (response) => {
           alert("QCM Submitted! Your score :"+response.score);
+          this.router.navigate(['/attempts']);
+
         },
         error:(err)=>{
           console.error("oops somthing went wrong!", err);

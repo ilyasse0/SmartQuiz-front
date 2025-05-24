@@ -1,8 +1,287 @@
-.card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* filepath: /Users/hamzacharmaqe/Documents/ENSAM/S2/JEE/SmartQuiz-front/src/app/layout/qcm-public/qcm-public.component.css */
+/* Search container styling */
+.search-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.search-container .input-group {
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.search-container .form-control {
+  font-size: 1rem;
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.search-container .input-group-text {
+  border-radius: 30px 0 0 30px;
+}
+
+/* Search tabs styling */
+.search-tabs .nav-link {
+  border-radius: 10px;
+  color: #495057;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.search-tabs .nav-link:hover {
+  background-color: rgba(78, 115, 223, 0.1);
+  color: #4e73df;
+}
+
+.search-tabs .nav-link.active {
+  background-color: #4e73df;
+  color: white;
+  box-shadow: 0 4px 10px rgba(78, 115, 223, 0.25);
+}
+
+/* Popular topics styling */
+.popular-topics {
+  opacity: 0.9;
+}
+
+.btn-topic {
+  background-color: #f8f9fc;
+  color: #4e73df;
+  border: 1px solid rgba(78, 115, 223, 0.2);
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.btn-topic:hover {
+  background-color: rgba(78, 115, 223, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-topic.active {
+  background-color: #4e73df;
+  color: white;
+  box-shadow: 0 2px 5px rgba(78, 115, 223, 0.3);
+}
+
+/* Active filters */
+.active-filters {
+  animation: fadeIn 0.3s ease;
+}
+
+.active-filters .badge {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.active-filters .bi-x-circle-fill {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.active-filters .bi-x-circle-fill:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.pointer {
   cursor: pointer;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+/* Quiz cards styling */
+.quiz-card {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.quiz-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #4e73df, #36b9cc);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.quiz-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-card:hover::before {
+  opacity: 1;
+}
+
+.quiz-card .card-body {
+  padding: 1.5rem;
+}
+
+/* Topic badge styling with color variations */
+.topic-badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.topic-color-0 {
+  background-color: #4e73df; /* Blue */
+}
+
+.topic-color-1 {
+  background-color: #1cc88a; /* Green */
+}
+
+.topic-color-2 {
+  background-color: #36b9cc; /* Cyan */
+}
+
+.topic-color-3 {
+  background-color: #f6c23e; /* Yellow */
+}
+
+.topic-color-4 {
+  background-color: #e74a3b; /* Red */
+}
+
+/* Avatar styling */
+.avatar-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f2f5;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #4e73df, #36b9cc);
+}
+
+/* Card footer styling */
+.card-footer {
+  background-color: transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 1rem;
+}
+
+/* Button styling */
+.btn-start {
+  border-radius: 20px;
+  padding: 0.375rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: linear-gradient(90deg, #4e73df, #36b9cc);
+  border: none;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+}
+
+/* Empty state styling */
+.empty-state {
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: #f8f9fc;
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: rgba(78, 115, 223, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading spinner container */
+.spinner-container {
+  padding: 3rem;
+}
+
+.spinner-border-lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.25rem;
+}
+
+/* Results summary */
+.results-summary {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: #f8f9fc;
+}
+
+/* Animation for card entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.col-md-6 {
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: calc(var(--animation-order) * 0.1s);
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .quiz-card .card-body {
+    padding: 1rem;
+  }
+
+  .search-tabs .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .btn-topic {
+    margin-bottom: 0.5rem;
+  }
 }

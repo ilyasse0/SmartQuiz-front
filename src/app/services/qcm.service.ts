@@ -5,6 +5,26 @@ import { Observable, catchError, throwError } from 'rxjs';
 import {QcmSetDtoToAttempt} from '../models/qcm';
 import {AttemptRequest} from '../models/AttemptRequest';
 
+export interface ReviewDto {
+  title: string;
+  topic: string;
+  questions: ReviewedQuestion[];
+}
+
+export interface ReviewedQuestion {
+  questionId: number;
+  content: string;
+  selectedOption: string;
+  correctOption: string;
+  isCorrect: boolean;
+  options: OptionDto[];
+}
+
+export interface OptionDto {
+  label: string;
+  text: string;
+}
+
 export interface Authority {
   authority: string;
 }
@@ -167,4 +187,12 @@ export class QcmService {
     }
     return this.http.get<QcmDto[]>(`${this.apiUrl}/generate/public`, { headers, params });
   }
+
+
+  getReviewAttempt(attemptId: number): Observable<ReviewDto> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<ReviewDto>(`${this.apiUrl}/api/attempts/review/${attemptId}`, { headers });
+  }
+
 }

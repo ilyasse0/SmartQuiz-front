@@ -1,37 +1,92 @@
-<div class="container mt-4 p-lg-2" style="max-width: 900px;">
-  <h2>Mes Tentatives</h2>
+<div  class="container mt-4 p-lg-2" style="max-width: 900px;">
+  <!-- Page Title -->
+  <h2 class="mb-4 text-center">
+    <i class="bi bi-clock-history me-2 text-primary"></i> My Quiz Results
+  </h2>
 
-  <div *ngIf="loading">Chargement...</div>
-  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-
-  <table *ngIf="!loading && !error && attempts.length > 0" class="table table-striped">
-    <thead>
-    <tr>
-      <th>#ID</th>
-      <th>Date de début</th>
-      <th>Date de fin</th>
-      <th>Score</th>
-      <th>QCM</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let attempt of attempts">
-      <td>{{ attempt.id }}</td>
-      <td>{{ attempt.startedAt | date: 'short' }}</td>
-      <td>{{ attempt.completedAt | date: 'short' }}</td>
-      <td>{{ attempt.score }}</td>
-      <td>{{ attempt.qcmSetId }}</td>
-      <td>
-        <a [routerLink]="['/qcm/attempt', attempt.qcmSetId]" class="btn btn-primary btn-sm">
-          Repasser
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="!loading && !error && attempts.length === 0" class="alert alert-info">
-    Vous n'avez encore fait aucune tentative.
+  <!-- Search Bar -->
+  <div class="input-group mb-4">
+    <span class="input-group-text bg-white">
+      <i class="bi bi-search"></i>
+    </span>
+    <input
+      type="search"
+      class="form-control form-control-lg"
+      placeholder="Search by QCM ID, score or date..."
+      [(ngModel)]="searchTerm"
+      aria-label="Search attempts"
+    />
   </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+
+  <!-- No Attempts Message -->
+  <div *ngIf="!loading && !error && attempts.length === 0" class="alert alert-info text-center">
+    You haven't made any attempts yet.
+  </div>
+
+  <!-- Attempts Table -->
+  <div class="card shadow-sm" *ngIf="!loading && !error && paginatedAttempts.length > 0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Started At</th>
+          <th>Completed At</th>
+          <th>Score</th>
+          <th>QCM ID</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let attempt of paginatedAttempts">
+          <td>{{ attempt.id }}</td>
+          <td>{{ attempt.startedAt | date: 'short' }}</td>
+          <td>{{ attempt.completedAt | date: 'short' }}</td>
+          <td>{{ attempt.score }}</td>
+          <td>{{ attempt.qcmTitle }}</td>
+          <td>
+            <a
+              [routerLink]="['/qcm/review/', attempt.id]"
+              class="btn btn-outline-primary btn-sm"
+              title="Retake Quiz"
+            >
+              <i class="bi bi-arrow-repeat me-1"></i> View Result
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <nav class="mt-4" *ngIf="totalPages > 0">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">
+          <i class="bi bi-chevron-left"></i> Previous
+        </button>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ currentPage }} of {{ totalPages }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Next <i class="bi bi-chevron-right"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
 </div>

@@ -1,29 +1,50 @@
-<div class="container" *ngIf="submitted; else codeForm">
-  <div class="activate-message" *ngIf="isOkay; else activationError">
-    <h2>Activation successful</h2>
-    <p>{{ message || 'Your account has been activated successfully.' }}</p>
-    <button class="btn btn-primary" (click)="redirectToLogin()">Go to Login</button>
+<div class="container py-5" *ngIf="submitted; else codeForm">
+  <div class="text-center">
+    <div class="activate-message" *ngIf="isOkay; else activationError">
+      <h2 class="text-success mb-3">✅ Activation Successful</h2>
+      <p class="lead">{{ message || 'Your account has been activated successfully.' }}</p>
+      <button class="btn btn-primary mt-3" (click)="redirectToLogin()">
+        <i class="bi bi-box-arrow-in-right me-2"></i> Go to Login
+      </button>
+    </div>
   </div>
 </div>
 
 <ng-template #activationError>
-  <div class="activate-error">
-    <h2>Activation failed</h2>
-    <p>{{ message || 'An unknown error occurred during activation.' }}</p>
-    <button class="btn btn-primary" (click)="submitted = false">Try again</button>
+  <div class="container py-5 text-center">
+    <div class="activate-error">
+      <h2 class="text-danger mb-3">❌ Activation Failed</h2>
+      <p class="lead">{{ message || 'An unknown error occurred during activation.' }}</p>
+      <button class="btn btn-outline-danger mt-3" (click)="submitted = false">
+        <i class="bi bi-arrow-repeat me-2"></i> Try Again
+      </button>
+    </div>
   </div>
 </ng-template>
 
 <ng-template #codeForm>
-  <div class="container">
-    <div class="text-center" style="width: 400px;">
-      <h2>Type your Activation Code</h2>
+  <div class="container py-5 d-flex justify-content-center align-items-center">
+    <div class="p-4 shadow rounded bg-white text-center" style="max-width: 420px; width: 100%;">
+      <h2 class="mb-3 text-primary">🔐 One Step Away</h2>
+      <p class="text-muted mb-4">We’ve sent a 6-digit activation code to your email. Please enter it below to complete your registration.</p>
+
       <code-input
         [isCodeHidden]="false"
         [codeLength]="6"
         [code]="'number'"
         (codeCompleted)="onCodeCompleted($event)"
       ></code-input>
+
+      <p class="text-muted mt-4 small">Didn’t receive a code? <a href="#" (click)="$event.preventDefault()">Resend</a></p>
     </div>
   </div>
 </ng-template>
+
+<style>
+  .activate-message, .activate-error {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+</style>

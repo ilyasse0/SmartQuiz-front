@@ -1,0 +1,51 @@
+<div class="container mt-4 p-lg-2" style="max-width: 900px;" *ngIf="reviewData">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{{ reviewData.title }}</h2>
+        <div class="d-flex align-items-center">
+          <i class="bi bi-bar-chart-line fs-4 me-2"></i>
+          <span class="fw-medium">Review</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <strong>Topic:</strong> {{ reviewData.topic }}
+      </div>
+
+      <div *ngFor="let question of reviewData.questions; let i = index" class="card mb-4 border-primary border-opacity-25">
+        <div class="card-header bg-primary bg-opacity-10">
+          <h4 class="mb-0 fs-5">Question {{ i + 1 }}: {{ question.content }}</h4>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <div class="list-group-item border-0" *ngFor="let option of question.options">
+              <div [ngClass]="{
+                    'bg-success bg-opacity-75 text-white': isCorrect(option.label, question),
+                    'bg-danger text-white': isSelected(option.label, question) && !isCorrect(option.label, question),
+                    'bg-light': !isSelected(option.label, question) && !isCorrect(option.label, question)
+                  }"
+                   class="p-3 rounded">
+                <strong>{{ option.label }}.</strong> {{ option.text }}
+                <span *ngIf="isSelected(option.label, question)">
+                  <i class="bi bi-check-circle-fill ms-2"></i>
+                  <span class="fw-bold">(Your Answer)</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional: summary or back button -->
+      <div class="text-end">
+        <a routerLink="/attempts" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left-circle me-2"></i>Back to My Attempts
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

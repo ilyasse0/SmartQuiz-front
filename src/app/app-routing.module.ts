@@ -14,6 +14,7 @@ import {QcmAttemptComponent} from './layout/qcm-attempt/qcm-attempt.component';
 import {AttemptListComponent} from './layout/attempt-list/attempt-list.component';
 import {MyQcmsComponent} from './layout/my-qcms/my-qcms.component';
 import {QcmPublicComponent} from './layout/qcm-public/qcm-public.component';
+import {QcmReviewComponent} from './layout/qcm-review/qcm-review.component';
 
 const routes: Routes = [
   // Public/auth routes
@@ -35,6 +36,8 @@ const routes: Routes = [
       { path: 'attempts', component: AttemptListComponent },
       { path: 'my-qcms', component: MyQcmsComponent },
       { path: 'public-qcms', component: QcmPublicComponent },
+      { path: 'qcm/review/:attemptId', component: QcmReviewComponent}
+
       // Add more protected routes here
     ]
   },
